@@ -1,0 +1,19 @@
+{
+  "name": "pansou-flix",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "PanSou 影视墙 — Emby 风格的网盘资源检索前端",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.0.7"
+  }
+}
