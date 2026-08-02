@@ -1,0 +1,228 @@
+/* ==========================================================================
+   PanFlix · 暗色影院风设计系统
+   ========================================================================== */
+
+:root {
+  /* 背景层 */
+  --bg-0: #07080c;          /* 最底层 */
+  --bg-1: #0b0d12;          /* 页面背景 */
+  --bg-2: #12151c;          /* 卡片 / 面板 */
+  --bg-3: #1a1e28;          /* 抬升元素 */
+  --bg-hover: #222734;
+
+  /* 文本 */
+  --text-1: #f2f4f8;
+  --text-2: #b6bdca;
+  --text-3: #7e879a;
+  --text-4: #565d6e;
+
+  /* 主色 */
+  --accent: #3b82f6;        /* 蓝 */
+  --accent-2: #a855f7;      /* 紫 */
+  --accent-grad: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+
+  /* 语义色 */
+  --ok: #22c55e;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+
+  /* 边框 / 分割 */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  /* 圆角 */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-pill: 999px;
+
+  /* 阴影 */
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-pop: 0 18px 50px rgba(0, 0, 0, 0.6);
+
+  --topbar-h: 64px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(59, 130, 246, 0.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(168, 85, 247, 0.08), transparent 55%),
+    var(--bg-1);
+  color: var(--text-1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-3);
+  border-radius: 99px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-hover);
+  background-clip: padding-box;
+}
+
+/* 通用工具类 -------------------------------------------------------------- */
+.gradient-text {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: var(--r-pill);
+  font-size: 12.5px;
+  line-height: 1;
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+  color: var(--text-2);
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.chip:hover {
+  border-color: var(--border-strong);
+  color: var(--text-1);
+}
+.chip.is-active {
+  background: rgba(59, 130, 246, 0.16);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #cfe0ff;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+  background: var(--bg-3);
+  color: var(--text-2);
+}
+.badge.res {
+  background: linear-gradient(135deg, #1d4ed8, #6d28d9);
+  color: #fff;
+}
+.badge.hdr {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fcd34d;
+}
+.badge.lang {
+  background: rgba(34, 197, 94, 0.16);
+  color: #86efac;
+}
+.badge.ep {
+  background: rgba(168, 85, 247, 0.18);
+  color: #d8b4fe;
+}
+
+.skeleton {
+  background: linear-gradient(100deg, var(--bg-2) 30%, var(--bg-3) 50%, var(--bg-2) 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite linear;
+}
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.18s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* 移动端全局适配 ---------------------------------------------------------- */
+@media (max-width: 860px) {
+  /* iOS 在 font-size < 16px 的输入框聚焦时会强制放大页面。
+     组件内是 scoped 样式（特异性更高），这里必须 !important 才能覆盖。 */
+  input[type='search'],
+  input[type='text'],
+  input:not([type]),
+  textarea {
+    font-size: 16px !important;
+  }
+  /* 细化滚动条，移动端浏览器里不占视觉 */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  .badge {
+    font-size: 10.5px;
+    padding: 2px 6px;
+  }
+  .chip {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+/* 触屏：去掉点击高亮块，避免长按出现蓝色蒙层 */
+@media (hover: none) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button,
+  a {
+    -webkit-touch-callout: none;
+  }
+}
+
+/* 尊重系统的「减少动态效果」设置 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
